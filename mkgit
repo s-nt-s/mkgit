@@ -4,9 +4,9 @@ if [ -f "~/.github" ]; then
 	exit 1
 fi
 CONFIG=$(cat ~/.github)
-USER=$(echo $CONFIG | cut -f1)
-PASS=$(echo $CONFIG | cut -f2)
-TOKEN=$(echo $CONFIG | cut -f3)
+USER=$(echo "$CONFIG" | cut -f1 -d' ')
+PASS=$(echo "$CONFIG" | cut -f2 -d' ')
+TOKEN=$(echo "$CONFIG" | cut -f3 -d' ')
 REPO=${PWD##*/}
 
 curl -u "$USER:$PASS" https://api.github.com/user/repos -d '{"name": "$REPO"}'
