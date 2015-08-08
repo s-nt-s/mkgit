@@ -9,7 +9,7 @@ PASS=$(echo "$CONFIG" | cut -f2 -d' ')
 TOKEN=$(echo "$CONFIG" | cut -f3 -d' ')
 REPO=${PWD##*/}
 
-curl -u "$USER:$PASS" https://api.github.com/user/repos -d '{"name": "${REPO}"}'
+curl -u "$USER:$PASS" https://api.github.com/user/repos -d "{\"name\": \"$REPO\"}"
 
 git init
 git add *
