@@ -10,8 +10,8 @@ if [ -z "$PASS" ]; then
 	echo "Password is required"
 	exit 1
 fi
-REPO=${PWD##*/}
 
+read -p "Name: " -e -i "${PWD##*/}" REPO
 read -p "Description: " -e -i "$(head -n 1 README.md 2> /dev/null)" DESCRIPTION
 
 OK=$(curl -w "%{http_code}" -o /dev/null -s -u "$USER:$PASS" https://api.github.com)
