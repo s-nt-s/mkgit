@@ -25,11 +25,6 @@ curl -s -u "$USER:$PASS" https://api.github.com/user/repos -d "{\"name\": \"$REP
 
 git init
 
-if [ -f .gitignore ]; do
-	git add .gitignore
-	git commit -m ".gitignore"
-done
-
 git add *
 git commit -m "First commit"
 git remote add origin https://github.com/${USER}/${REPO}.git
