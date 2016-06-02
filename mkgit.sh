@@ -10,8 +10,9 @@ if [ -z "$PASS" ]; then
 	echo "Password is required"
 	exit 1
 fi
-
 REPO=${PWD##*/}
+
+read -p "Description: " -e -i "$(head -n 1 README.md 2> /dev/null)" DESCRIPTION
 
 OK=$(curl -w "%{http_code}" -o /dev/null -s -u "$USER:$PASS" https://api.github.com)
 
@@ -20,9 +21,15 @@ if [ "$OK" -ne "200" ]; then
 	exit 1
 fi
 
-curl -s -u "$USER:$PASS" https://api.github.com/user/repos -d "{\"name\": \"$REPO\"}"
+curl -s -u "$USER:$PASS" https://api.github.com/user/repos -d "{\"name\": \"$REPO\", \"description\": \"$DESCRIPTION\"}"
 
 git init
+
+if [ -f .gitignore ]; do
+	git add .gitignore
+	git commit -m ".gitignore"
+done
+
 git add *
 git commit -m "First commit"
 git remote add origin https://github.com/${USER}/${REPO}.git
