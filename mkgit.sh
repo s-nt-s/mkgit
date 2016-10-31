@@ -28,6 +28,7 @@ git init
 git add *
 git commit -m "First commit"
 git remote add origin https://github.com/${USER}/${REPO}.git
+git push --set-upstream origin master
 
 if [ "$1" != "--nopush" ]; then
 	#git remote add origin git@github.com:${USER}/${REPO}.git
