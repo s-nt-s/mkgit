@@ -25,12 +25,19 @@ curl -s -u "$USER:$PASS" https://api.github.com/user/repos -d "{\"name\": \"$REP
 
 git init
 
-git add *
-git commit -m "First commit"
-git remote add origin https://github.com/${USER}/${REPO}.git
-
-if [ "$1" != "--nopush" ]; then
-	#git remote add origin git@github.com:${USER}/${REPO}.git
-	git push -u origin master
+if [ ! -f .gitignore ]; then
+	touch .gitignore
 fi
 
+git add .gitignore
+
+if [ -f README.md ]; then
+	git add README.md
+fi
+
+git commit -m "First commit"
+#git remote add origin https://github.com/${USER}/${REPO}.git
+git remote add origin git@github.com:${USER}/${REPO}.git
+if [ "$1" != "--nopush" ]; then
+	git push -u origin master
+fi
